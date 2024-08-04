@@ -7,29 +7,88 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
+
+enum AAError: Error {
+    case invalidEmail
+}
 
 class SignUpViewController: UIViewController {
-
+    
     let emailTextField = SignTextField(placeholderText: "이메일을 입력해주세요")
     let validationButton = UIButton()
     let nextButton = PointButton(title: "다음")
+    let emailData = PublishSubject<String>()
+    let basicColor = Observable.just(UIColor.systemGreen)
+    let disposeBag = DisposeBag()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = Color.white
         
         configureLayout()
         configure()
         
-        nextButton.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
-
+        bind()
+        
     }
     
-    @objc func nextButtonClicked() {
-        navigationController?.pushViewController(PasswordViewController(), animated: true)
+    private func bind() {
+        let validation = emailTextField
+            .rx
+            .text
+            .orEmpty
+            .map { $0.count >= 4}
+        
+        validation
+            .bind(to:
+                    nextButton.rx.isEnabled
+            )
+            .disposed(by: disposeBag)
+        
+        validation
+            .bind(with: self) { owner, value in
+                let color: UIColor = value ? .systemGreen : .systemRed
+                owner.nextButton.backgroundColor = color
+                owner.validationButton.isHidden = !value
+            }
+            .disposed(by: disposeBag)
+        
+        
+        emailData
+            .bind(to: emailTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        emailData.on(.next("d@d.com"))
+        
+        validationButton.rx.tap
+            .bind(with: self) { owner, _ in
+                owner.emailData.onNext("b@b.com")
+            }
+            .disposed(by: disposeBag)
+        
+        basicColor
+            .bind(to:
+                    nextButton.rx.backgroundColor,
+                  emailTextField.rx.textColor,
+                  emailTextField.rx.tintColor)
+            .disposed(by: disposeBag)
+        
+        basicColor
+            .map { $0.cgColor }
+            .bind(to: emailTextField.layer.rx.borderColor)
+            .disposed(by: disposeBag)
+        
+        nextButton.rx.tap
+            .bind(with: self) { owner, _ in
+                owner.navigationController?.pushViewController(PasswordViewController(), animated: true)
+            }
+            .disposed(by: disposeBag)
     }
-
+    
     func configure() {
         validationButton.setTitle("중복확인", for: .normal)
         validationButton.setTitleColor(Color.black, for: .normal)
@@ -64,5 +123,5 @@ class SignUpViewController: UIViewController {
         }
     }
     
-
+    
 }
