@@ -36,7 +36,7 @@ final class ShoppingListViewController: UIViewController {
         return view
     }()
     
-    private let secureButton: UIButton = {
+    private let addButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("추가", for: .normal)
         button.backgroundColor = .lightGray
@@ -55,7 +55,7 @@ final class ShoppingListViewController: UIViewController {
         textField.textColor = .black
         
         textField.rightViewMode = .always
-        textField.rightView = secureButton
+        textField.rightView = addButton
         return textField
     }()
     
@@ -110,7 +110,7 @@ final class ShoppingListViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        secureButton.rx.tap
+        addButton.rx.tap
             .withLatestFrom(textField.rx.text.orEmpty) { void, text in
                 return text
             }
@@ -121,6 +121,17 @@ final class ShoppingListViewController: UIViewController {
                 owner.list.onNext(currentList)
             }
             .disposed(by: disposeBag)
+        
+        tableView.rx.itemDeleted
+            .observe(on: MainScheduler.asyncInstance)
+            .withUnretained(self)
+            .bind { owner, indexPath in
+                var currentList = try! owner.list.value()
+                currentList.remove(at: indexPath.row)
+                owner.list.onNext(currentList)
+            }
+            .disposed(by: disposeBag)
+        
     }
     
 }
