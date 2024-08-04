@@ -132,6 +132,11 @@ final class ShoppingListViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
+        tableView.rx.itemSelected
+            .bind(with: self) { owner, _ in
+                owner.navigationController?.pushViewController(DetailViewController(), animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
 }
