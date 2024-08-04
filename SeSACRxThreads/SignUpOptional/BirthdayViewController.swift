@@ -173,7 +173,9 @@ class BirthdayViewController: UIViewController {
     
     func showAlert() {
         let alert = UIAlertController(title: "가입 완료", message: "가입이 완료되었습니다.", preferredStyle: .alert)
-        let action = UIAlertAction(title: "확인", style: .default, handler: nil)
+        let action = UIAlertAction(title: "확인", style: .default) { _ in
+            self.navigationController?.pushViewController(ShoppingListViewController(), animated: true)
+        }
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
