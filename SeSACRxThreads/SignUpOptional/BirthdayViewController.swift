@@ -7,8 +7,12 @@
  
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class BirthdayViewController: UIViewController {
+    
+    let disposeBag = DisposeBag()
     
     let birthDayPicker: UIDatePicker = {
         let picker = UIDatePicker()
@@ -21,7 +25,7 @@ class BirthdayViewController: UIViewController {
     
     let infoLabel: UILabel = {
        let label = UILabel()
-        label.textColor = Color.black
+        label.textColor = .black
         label.text = "만 17세 이상만 가입 가능합니다."
         return label
     }()
@@ -30,14 +34,14 @@ class BirthdayViewController: UIViewController {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.distribution = .equalSpacing
-        stack.spacing = 10 
+        stack.spacing = 10
         return stack
     }()
     
     let yearLabel: UILabel = {
        let label = UILabel()
         label.text = "2023년"
-        label.textColor = Color.black
+        label.textColor = .black
         label.snp.makeConstraints {
             $0.width.equalTo(100)
         }
@@ -47,7 +51,7 @@ class BirthdayViewController: UIViewController {
     let monthLabel: UILabel = {
        let label = UILabel()
         label.text = "33월"
-        label.textColor = Color.black
+        label.textColor = .black
         label.snp.makeConstraints {
             $0.width.equalTo(100)
         }
@@ -57,7 +61,7 @@ class BirthdayViewController: UIViewController {
     let dayLabel: UILabel = {
        let label = UILabel()
         label.text = "99일"
-        label.textColor = Color.black
+        label.textColor = .black
         label.snp.makeConstraints {
             $0.width.equalTo(100)
         }
@@ -66,20 +70,73 @@ class BirthdayViewController: UIViewController {
   
     let nextButton = PointButton(title: "가입하기")
     
+    let year = BehaviorRelay(value: 2024)
+    let month = BehaviorRelay(value: 8)
+    let day = BehaviorRelay(value: 3)
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = Color.white
+        view.backgroundColor = .white
         
         configureLayout()
         
-        nextButton.addTarget(self, action: #selector(nextButtonClicked), for: .touchUpInside)
+        bind()
     }
     
-    @objc func nextButtonClicked() {
-        navigationController?.pushViewController(SearchViewController(), animated: true)
+    func bind() {
+        
+        let validation = birthDayPicker.rx.date
+            .map {
+                let ageComponent = Calendar.current.dateComponents([.year], from: $0, to: Date())
+                let age = ageComponent.year!
+                return age >= 17
+            }
+        
+        validation
+            .bind(with: self) { owner, value in
+                owner.infoLabel.textColor = value ? UIColor.blue : UIColor.red
+                owner.infoLabel.text = value ? "가입 가능한 나이입니다." : "만 17세 이상만 가입 가능합니다."
+                owner.nextButton.backgroundColor = value ? UIColor.blue : UIColor.lightGray
+                owner.nextButton.isEnabled = value
+            }
+            .disposed(by: disposeBag)
+        
+        birthDayPicker.rx.date
+            .bind(with: self) { owner, date in
+                let component = Calendar.current.dateComponents([.day, .month, .year], from: date)
+                owner.year.accept(component.year!)
+                owner.month.accept(component.month!)
+                owner.day.accept(component.day!)
+            }
+            .disposed(by: disposeBag)
+        
+        year
+            .map { "\($0)년" }
+            .bind(to: yearLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        month
+            .bind(with: self, onNext: { owner, value in
+                owner.monthLabel.text = "\(value)월"
+            })
+            .disposed(by: disposeBag)
+        
+        day
+            .observe(on: MainScheduler.instance)
+            .subscribe(with: self, onNext: { owner, value in
+                owner.dayLabel.text = "\(value)일"
+            })
+            .disposed(by: disposeBag)
+        
+        
+        nextButton.rx.tap
+            .bind(with: self) { owner, _ in
+                owner.showAlert()
+            }
+            .disposed(by: disposeBag)
     }
-
     
     func configureLayout() {
         view.addSubview(infoLabel)
@@ -113,4 +170,12 @@ class BirthdayViewController: UIViewController {
         }
     }
 
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "가입 완료", message: "가입이 완료되었습니다.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "확인", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
 }
