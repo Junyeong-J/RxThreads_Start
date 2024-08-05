@@ -43,6 +43,8 @@
 		727E3DE62C6105790095E1D3 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DE52C6105790095E1D3 /* PasswordView.swift */; };
 		727E3DE82C6105860095E1D3 /* PasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DE72C6105860095E1D3 /* PasswordViewModel.swift */; };
 		727E3DEC2C6108630095E1D3 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DEB2C6108630095E1D3 /* SignInView.swift */; };
+		727E3DF12C610AEB0095E1D3 /* BirthdayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DF02C610AEB0095E1D3 /* BirthdayViewModel.swift */; };
+		727E3DF32C610B090095E1D3 /* BirthdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DF22C610B090095E1D3 /* BirthdayView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +102,8 @@
 		727E3DE52C6105790095E1D3 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
 		727E3DE72C6105860095E1D3 /* PasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewModel.swift; sourceTree = "<group>"; };
 		727E3DEB2C6108630095E1D3 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		727E3DF02C610AEB0095E1D3 /* BirthdayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayViewModel.swift; sourceTree = "<group>"; };
+		727E3DF22C610B090095E1D3 /* BirthdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,7 +222,8 @@
 		0412806D2AEFAD0F00972552 /* SignUpOptional */ = {
 			isa = PBXGroup;
 			children = (
-				0412806E2AEFAD2D00972552 /* BirthdayViewController.swift */,
+				727E3DEF2C610ADD0095E1D3 /* View */,
+				727E3DEE2C610AD00095E1D3 /* ViewModel */,
 				041280702AEFAD3D00972552 /* PhoneViewController.swift */,
 				041280722AEFAD4B00972552 /* NicknameViewController.swift */,
 			);
@@ -307,6 +312,23 @@
 				041280572AEFA05300972552 /* SignInViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		727E3DEE2C610AD00095E1D3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				727E3DF02C610AEB0095E1D3 /* BirthdayViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		727E3DEF2C610ADD0095E1D3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0412806E2AEFAD2D00972552 /* BirthdayViewController.swift */,
+				727E3DF22C610B090095E1D3 /* BirthdayView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -463,12 +485,14 @@
 				04F6DBFE2C5B0C0300667F4D /* SearchViewController.swift in Sources */,
 				04F6DC002C5B0C2200667F4D /* SearchTableViewCell.swift in Sources */,
 				727E3DDC2C60A1940095E1D3 /* BaseViewController.swift in Sources */,
+				727E3DF32C610B090095E1D3 /* BirthdayView.swift in Sources */,
 				041280732AEFAD4B00972552 /* NicknameViewController.swift in Sources */,
 				727E3DE42C60F88E0095E1D3 /* SignUpView.swift in Sources */,
 				727E3DE62C6105790095E1D3 /* PasswordView.swift in Sources */,
 				727E3DD62C60A0CC0095E1D3 /* ShoppingListViewModel.swift in Sources */,
 				727E3DE82C6105860095E1D3 /* PasswordViewModel.swift in Sources */,
 				727E3DD92C60A0FC0095E1D3 /* ShoppingListView.swift in Sources */,
+				727E3DF12C610AEB0095E1D3 /* BirthdayViewModel.swift in Sources */,
 				727E3DCD2C5F62E90095E1D3 /* ShoppingTableViewCell.swift in Sources */,
 				727E3DEC2C6108630095E1D3 /* SignInView.swift in Sources */,
 				0412806A2AEFA91E00972552 /* SignUpViewController.swift in Sources */,
