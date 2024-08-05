@@ -16,7 +16,9 @@ struct ShoppingItem {
     var saveList: Bool
 }
 
-final class ShoppingListViewController: UIViewController {
+final class ShoppingListViewController: BaseViewController<ShoppingListView> {
+    
+    let viewModel = ShoppingListViewModel()
     
     var shoppingListItems = [
         ShoppingItem(isCheckList: true, listTitle: "그립톡 구매하기", saveList: true),
@@ -27,68 +29,25 @@ final class ShoppingListViewController: UIViewController {
     
     lazy var list = BehaviorSubject(value: shoppingListItems)
     
-    private let tableView: UITableView = {
-        let view = UITableView()
-        view.register(ShoppingTableViewCell.self, forCellReuseIdentifier: ShoppingTableViewCell.identifier)
-        view.backgroundColor = .white
-        view.rowHeight = 44
-        view.separatorStyle = .none
-        return view
-    }()
-    
-    private let addButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("추가", for: .normal)
-        button.backgroundColor = .lightGray
-        button.layer.cornerRadius = 10
-        button.layer.masksToBounds = true
-        return button
-    }()
-    
-    private lazy var textField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "무엇을 구매하실 건가요?"
-        textField.backgroundColor = #colorLiteral(red: 0.9039029791, green: 0.9039029791, blue: 0.9039029791, alpha: 1)
-        textField.layer.cornerRadius = 10
-        textField.layer.masksToBounds = true
-        textField.tintColor = .black
-        textField.textColor = .black
-        
-        textField.rightViewMode = .always
-        textField.rightView = addButton
-        return textField
-    }()
-    
     let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .white
-        configure()
-        bind()
     }
     
-    private func configure() {
-        view.addSubview(textField)
-        view.addSubview(tableView)
-        
-        textField.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
-            $0.height.equalTo(60)
-        }
-        
-        tableView.snp.makeConstraints {
-            $0.top.equalTo(textField.snp.bottom).offset(10)
-            $0.horizontalEdges.bottom.equalToSuperview()
-        }
-        
+    override func configureView() {
+        super.configureView()
     }
     
-    private func bind() {
+    override func bindModel() {
+        
+        let input = ShoppingListViewModel.Input(
+            text: rootView.textField.rx.text.orEmpty, addTap: rootView.addButton.rx.tap)
+        
+        let output = viewModel.transform(input: input)
+        
         list
-            .bind(to: tableView.rx.items(cellIdentifier: ShoppingTableViewCell.identifier, cellType: ShoppingTableViewCell.self)) { row, item, cell in
+            .bind(to: rootView.tableView.rx.items(cellIdentifier: ShoppingTableViewCell.identifier, cellType: ShoppingTableViewCell.self)) { row, item, cell in
                 cell.configureData(data: item)
                 
                 cell.checkListButton.rx.tap
@@ -110,11 +69,7 @@ final class ShoppingListViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        addButton.rx.tap
-            .withLatestFrom(textField.rx.text.orEmpty) { void, text in
-                return text
-            }
-            .filter { !$0.isEmpty } // 빈값은 추가 못하게 하기
+        output.nextTap
             .bind(with: self) { owner, value in
                 var currentList = try! owner.list.value() // 추가버튼 눌러도 계속 유지하기 위해
                 currentList.insert((ShoppingItem(isCheckList: false, listTitle: value, saveList: false)), at: 0)
@@ -122,7 +77,7 @@ final class ShoppingListViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        tableView.rx.itemDeleted
+        rootView.tableView.rx.itemDeleted
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .bind { owner, indexPath in
@@ -132,7 +87,7 @@ final class ShoppingListViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        tableView.rx.itemSelected
+        rootView.tableView.rx.itemSelected
             .bind(with: self) { owner, _ in
                 owner.navigationController?.pushViewController(DetailViewController(), animated: true)
             }
