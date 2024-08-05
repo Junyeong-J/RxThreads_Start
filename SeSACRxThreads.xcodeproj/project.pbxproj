@@ -49,6 +49,8 @@
 		727E3DF72C610D880095E1D3 /* PhoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DF62C610D880095E1D3 /* PhoneViewModel.swift */; };
 		727E3DF92C6110D20095E1D3 /* NicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DF82C6110D20095E1D3 /* NicknameView.swift */; };
 		727E3DFB2C6110EF0095E1D3 /* NicknameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DFA2C6110EF0095E1D3 /* NicknameViewModel.swift */; };
+		727E3DFF2C6112A30095E1D3 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DFE2C6112A30095E1D3 /* SearchViewModel.swift */; };
+		727E3E012C6112D10095E1D3 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3E002C6112D10095E1D3 /* SearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +114,8 @@
 		727E3DF62C610D880095E1D3 /* PhoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneViewModel.swift; sourceTree = "<group>"; };
 		727E3DF82C6110D20095E1D3 /* NicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameView.swift; sourceTree = "<group>"; };
 		727E3DFA2C6110EF0095E1D3 /* NicknameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewModel.swift; sourceTree = "<group>"; };
+		727E3DFE2C6112A30095E1D3 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		727E3E002C6112D10095E1D3 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,9 +243,8 @@
 		04F6DBFC2C5B0BC200667F4D /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				04F6DBFD2C5B0C0300667F4D /* SearchViewController.swift */,
-				04F6DBFF2C5B0C2200667F4D /* SearchTableViewCell.swift */,
-				04F6DC012C5B0D8200667F4D /* DetailViewController.swift */,
+				727E3DFD2C6112910095E1D3 /* View */,
+				727E3DFC2C61128A0095E1D3 /* ViewModel */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -339,6 +342,25 @@
 				727E3DF42C610D6A0095E1D3 /* PhoneView.swift */,
 				041280722AEFAD4B00972552 /* NicknameViewController.swift */,
 				727E3DF82C6110D20095E1D3 /* NicknameView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		727E3DFC2C61128A0095E1D3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				727E3DFE2C6112A30095E1D3 /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		727E3DFD2C6112910095E1D3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04F6DBFD2C5B0C0300667F4D /* SearchViewController.swift */,
+				04F6DBFF2C5B0C2200667F4D /* SearchTableViewCell.swift */,
+				04F6DC012C5B0D8200667F4D /* DetailViewController.swift */,
+				727E3E002C6112D10095E1D3 /* SearchView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -483,6 +505,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				041280782AF1D14000972552 /* Resource.swift in Sources */,
+				727E3DFF2C6112A30095E1D3 /* SearchViewModel.swift in Sources */,
 				727E3DCB2C5F61430095E1D3 /* ShoppingListViewController.swift in Sources */,
 				0412806F2AEFAD2D00972552 /* BirthdayViewController.swift in Sources */,
 				041280652AEFA2F000972552 /* SignTextField.swift in Sources */,
@@ -509,6 +532,7 @@
 				727E3DD92C60A0FC0095E1D3 /* ShoppingListView.swift in Sources */,
 				727E3DF12C610AEB0095E1D3 /* BirthdayViewModel.swift in Sources */,
 				727E3DCD2C5F62E90095E1D3 /* ShoppingTableViewCell.swift in Sources */,
+				727E3E012C6112D10095E1D3 /* SearchView.swift in Sources */,
 				727E3DEC2C6108630095E1D3 /* SignInView.swift in Sources */,
 				0412806A2AEFA91E00972552 /* SignUpViewController.swift in Sources */,
 				727E3DDE2C60A4110095E1D3 /* BaseView.swift in Sources */,
