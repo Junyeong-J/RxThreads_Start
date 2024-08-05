@@ -8,7 +8,6 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import SnapKit
 
 struct ShoppingItem {
     var isCheckList: Bool

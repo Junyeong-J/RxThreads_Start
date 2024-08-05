@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 import RxSwift
 import RxCocoa
 
@@ -14,7 +13,7 @@ enum AAError: Error {
     case invalidEmail
 }
 
-class SignUpViewController: BaseViewController<SignUpView> {
+final class SignUpViewController: BaseViewController<SignUpView> {
     
     let viewModel = SignUpViewModel()
     
