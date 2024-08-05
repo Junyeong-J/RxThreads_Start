@@ -40,6 +40,8 @@
 		727E3DDE2C60A4110095E1D3 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DDD2C60A4110095E1D3 /* BaseView.swift */; };
 		727E3DE22C60F87B0095E1D3 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DE12C60F87B0095E1D3 /* SignUpViewModel.swift */; };
 		727E3DE42C60F88E0095E1D3 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DE32C60F88E0095E1D3 /* SignUpView.swift */; };
+		727E3DE62C6105790095E1D3 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DE52C6105790095E1D3 /* PasswordView.swift */; };
+		727E3DE82C6105860095E1D3 /* PasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DE72C6105860095E1D3 /* PasswordViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +96,8 @@
 		727E3DDD2C60A4110095E1D3 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		727E3DE12C60F87B0095E1D3 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		727E3DE32C60F88E0095E1D3 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		727E3DE52C6105790095E1D3 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
+		727E3DE72C6105860095E1D3 /* PasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,7 +191,6 @@
 			children = (
 				727E3DDF2C60F85D0095E1D3 /* View */,
 				727E3DE02C60F8690095E1D3 /* ViewModel */,
-				0412806B2AEFABFE00972552 /* PasswordViewController.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -272,6 +275,8 @@
 			children = (
 				041280692AEFA91E00972552 /* SignUpViewController.swift */,
 				727E3DE32C60F88E0095E1D3 /* SignUpView.swift */,
+				0412806B2AEFABFE00972552 /* PasswordViewController.swift */,
+				727E3DE52C6105790095E1D3 /* PasswordView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -280,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				727E3DE12C60F87B0095E1D3 /* SignUpViewModel.swift */,
+				727E3DE72C6105860095E1D3 /* PasswordViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -440,7 +446,9 @@
 				727E3DDC2C60A1940095E1D3 /* BaseViewController.swift in Sources */,
 				041280732AEFAD4B00972552 /* NicknameViewController.swift in Sources */,
 				727E3DE42C60F88E0095E1D3 /* SignUpView.swift in Sources */,
+				727E3DE62C6105790095E1D3 /* PasswordView.swift in Sources */,
 				727E3DD62C60A0CC0095E1D3 /* ShoppingListViewModel.swift in Sources */,
+				727E3DE82C6105860095E1D3 /* PasswordViewModel.swift in Sources */,
 				727E3DD92C60A0FC0095E1D3 /* ShoppingListView.swift in Sources */,
 				727E3DCD2C5F62E90095E1D3 /* ShoppingTableViewCell.swift in Sources */,
 				0412806A2AEFA91E00972552 /* SignUpViewController.swift in Sources */,
