@@ -12,7 +12,6 @@ import RxCocoa
 
 final class ShoppingTableViewCell: UITableViewCell {
     
-    static let identifier = "SearchTableViewCell"
     var disposeBag = DisposeBag()
     
     override func prepareForReuse() {

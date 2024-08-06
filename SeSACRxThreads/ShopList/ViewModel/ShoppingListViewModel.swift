@@ -24,8 +24,6 @@ final class ShoppingListViewModel {
     
     func transform(input: Input) -> Output {
         
-        let shoppingItem: BehaviorSubject<[ShoppingItem]>
-        
         let addTap = input.addTap
             .withLatestFrom(input.text) { void, text in
                 return text

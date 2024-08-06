@@ -41,7 +41,8 @@ final class ShoppingListViewController: BaseViewController<ShoppingListView> {
     override func bindModel() {
         
         let input = ShoppingListViewModel.Input(
-            text: rootView.textField.rx.text.orEmpty, addTap: rootView.addButton.rx.tap)
+            text: rootView.textField.rx.text.orEmpty,
+            addTap: rootView.addButton.rx.tap)
         
         let output = viewModel.transform(input: input)
         
