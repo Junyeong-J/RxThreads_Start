@@ -9,12 +9,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-struct ShoppingItem {
-    var isCheckList: Bool
-    let listTitle: String
-    var saveList: Bool
-}
-
 final class ShoppingListViewController: BaseViewController<ShoppingListView> {
     
     let viewModel = ShoppingListViewModel()

@@ -13,6 +13,15 @@ final class ShoppingListViewModel {
     
     let disposeBag = DisposeBag()
     
+    var shoppingListItems = [
+        ShoppingItem(isCheckList: true, listTitle: "그립톡 구매하기", saveList: true),
+        ShoppingItem(isCheckList: false, listTitle: "사이다 구매", saveList: false),
+        ShoppingItem(isCheckList: false, listTitle: "아이패드 케이스 최저가 알아보기", saveList: true),
+        ShoppingItem(isCheckList: false, listTitle: "양말", saveList: true)
+    ]
+    
+    lazy var list = BehaviorSubject(value: shoppingListItems)
+    
     struct Input {
         let text: ControlProperty<String>
         let addTap: ControlEvent<Void>
