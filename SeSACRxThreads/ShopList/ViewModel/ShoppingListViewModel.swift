@@ -26,6 +26,7 @@ final class ShoppingListViewModel {
         let addTap: ControlEvent<Void>
         let addText: ControlProperty<String>
         let recentText: PublishSubject<String>
+        let myListText: PublishSubject<String>
     }
     
     struct Output {
@@ -39,8 +40,15 @@ final class ShoppingListViewModel {
         
         input.recentText
             .subscribe(with: self) { owner, value in
-                owner.recentList.append(value)
+                owner.recentList.insert(value, at: 0)
                 recentList.onNext(owner.recentList)
+            }
+            .disposed(by: disposeBag)
+        
+        input.myListText
+            .subscribe(with: self) { owner, value in
+                owner.shoppingList.insert(ShoppingItem(isCheckList: false, listTitle: value, saveList: false), at: 0)
+                shoppingList.onNext(owner.shoppingList)
             }
             .disposed(by: disposeBag)
         

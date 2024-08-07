@@ -25,12 +25,13 @@ final class ShoppingListViewController: BaseViewController<ShoppingListView> {
     
     override func bindModel() {
         let recentText = PublishSubject<String>()
+        let myListText = PublishSubject<String>()
         
         let input = ShoppingListViewModel.Input(
             addTap: rootView.addButton.rx.tap,
             addText: rootView.textField.rx.text.orEmpty,
-            
-            recentText: recentText)
+            recentText: recentText,
+            myListText: myListText)
         
         let output = viewModel.transform(input: input)
         
@@ -51,15 +52,25 @@ final class ShoppingListViewController: BaseViewController<ShoppingListView> {
             .disposed(by: disposeBag)
         
         Observable.zip(
-            rootView.tableView.rx.modelSelected(String.self),
+            rootView.tableView.rx.modelSelected(ShoppingItem.self),
             rootView.tableView.rx.itemSelected
         )
-        .map { $0.0 }
+        .map { $0.0.listTitle }
         .subscribe(with: self) { owner, value in
             recentText.onNext(value)
         }
         .disposed(by: disposeBag)
 
+        Observable.zip(
+            rootView.collectionView.rx.modelSelected(String.self),
+            rootView.collectionView.rx.itemSelected
+        )
+        .map { $0.0 }
+        .subscribe(with: self) { owner, value in
+            myListText.onNext(value)
+        }
+        .disposed(by: disposeBag)
+        
         
 //        rootView.tableView.rx.itemSelected
 //            .bind(with: self) { owner, _ in
