@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class ShoppingListcollectionViewCell: BaseCollectionViewCell {
+final class ShoppingCollectionViewCell: BaseCollectionViewCell {
     
     let searchWordLabel = UILabel()
     

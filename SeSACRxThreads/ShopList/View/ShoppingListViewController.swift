@@ -28,20 +28,47 @@ final class ShoppingListViewController: BaseViewController<ShoppingListView> {
         
         let input = ShoppingListViewModel.Input(
             addTap: rootView.addButton.rx.tap,
-            text: rootView.textField.rx.text.orEmpty,
+            addText: rootView.textField.rx.text.orEmpty,
+            
             recentText: recentText)
         
         let output = viewModel.transform(input: input)
         
         output.recentList
-            .bind(to: rootView.collectionView.rx.items(cellIdentifier: ShoppingListcollectionViewCell.identifier, cellType: ShoppingListcollectionViewCell.self)) { (row, element, cell) in
+            .bind(to: rootView.collectionView.rx.items(
+                cellIdentifier: ShoppingCollectionViewCell.identifier,
+                cellType: ShoppingCollectionViewCell.self)) { (row, element, cell) in
                 cell.searchWordLabel.text = element
-                
             }
             .disposed(by: disposeBag)
         
         output.shopList
-            .bind(to: rootView.tableView.rx.items(cellIdentifier: ShoppingTableViewCell.identifier, cellType: ShoppingTableViewCell.self)) { (row, element, cell) in
+            .bind(to: rootView.tableView.rx.items(
+                cellIdentifier: ShoppingTableViewCell.identifier,
+                cellType: ShoppingTableViewCell.self)) { (row, element, cell) in
+                cell.configureData(data: element)
+            }
+            .disposed(by: disposeBag)
+        
+        Observable.zip(
+            rootView.tableView.rx.modelSelected(String.self),
+            rootView.tableView.rx.itemSelected
+        )
+        .map { $0.0 }
+        .subscribe(with: self) { owner, value in
+            recentText.onNext(value)
+        }
+        .disposed(by: disposeBag)
+
+        
+//        rootView.tableView.rx.itemSelected
+//            .bind(with: self) { owner, _ in
+//                owner.navigationController?.pushViewController(DetailViewController(), animated: true)
+//            }
+//            .disposed(by: disposeBag)
+    }
+    
+}
 //                cell.configureData(data: element)
 //                cell.checkListButton.rx.tap
 //                    .bind(with: self) { owner, _ in
@@ -50,7 +77,7 @@ final class ShoppingListViewController: BaseViewController<ShoppingListView> {
 //                        owner.list.onNext(currentList)
 //                    }
 //                    .disposed(by: cell.disposeBag)
-//                
+//
 //                cell.saveButton.rx.tap
 //                    .bind(with: self) { owner, _ in
 //                        var currentList = try! owner.list.value()
@@ -58,20 +85,6 @@ final class ShoppingListViewController: BaseViewController<ShoppingListView> {
 //                        owner.list.onNext(currentList)
 //                    }
 //                    .disposed(by: cell.disposeBag)
-            }
-            .disposed(by: disposeBag)
-        
-
-        
-        rootView.tableView.rx.itemSelected
-            .bind(with: self) { owner, _ in
-                owner.navigationController?.pushViewController(DetailViewController(), animated: true)
-            }
-            .disposed(by: disposeBag)
-    }
-    
-}
-
 
 //        output.nextTap
 //            .bind(with: self) { owner, value in

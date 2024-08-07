@@ -21,13 +21,13 @@ final class ShoppingListView: BaseView {
     
     let collectionView: UICollectionView = { 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
-        collectionView.register(ShoppingListcollectionViewCell.self, forCellWithReuseIdentifier: ShoppingListcollectionViewCell.identifier)
+        collectionView.register(ShoppingCollectionViewCell.self, forCellWithReuseIdentifier: ShoppingCollectionViewCell.identifier)
         return collectionView
     }()
     
     static func layout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 120, height: 40)
+        layout.itemSize = CGSize(width: 40, height: 40)
         layout.scrollDirection = .horizontal
         return layout
     }
