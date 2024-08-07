@@ -39,17 +39,17 @@ final class ShoppingListViewController: BaseViewController<ShoppingListView> {
             .bind(to: rootView.collectionView.rx.items(
                 cellIdentifier: ShoppingCollectionViewCell.identifier,
                 cellType: ShoppingCollectionViewCell.self)) { (row, element, cell) in
-                cell.searchWordLabel.text = element
-            }
-            .disposed(by: disposeBag)
+                    cell.configureData(text: element)
+                }
+                .disposed(by: disposeBag)
         
         output.shopList
             .bind(to: rootView.tableView.rx.items(
                 cellIdentifier: ShoppingTableViewCell.identifier,
                 cellType: ShoppingTableViewCell.self)) { (row, element, cell) in
-                cell.configureData(data: element)
-            }
-            .disposed(by: disposeBag)
+                    cell.configureData(data: element)
+                }
+                .disposed(by: disposeBag)
         
         Observable.zip(
             rootView.tableView.rx.modelSelected(ShoppingItem.self),
@@ -60,7 +60,7 @@ final class ShoppingListViewController: BaseViewController<ShoppingListView> {
             recentText.onNext(value)
         }
         .disposed(by: disposeBag)
-
+        
         Observable.zip(
             rootView.collectionView.rx.modelSelected(String.self),
             rootView.collectionView.rx.itemSelected
@@ -71,40 +71,9 @@ final class ShoppingListViewController: BaseViewController<ShoppingListView> {
         }
         .disposed(by: disposeBag)
         
-        
-//        rootView.tableView.rx.itemSelected
-//            .bind(with: self) { owner, _ in
-//                owner.navigationController?.pushViewController(DetailViewController(), animated: true)
-//            }
-//            .disposed(by: disposeBag)
     }
     
 }
-//                cell.configureData(data: element)
-//                cell.checkListButton.rx.tap
-//                    .bind(with: self) { owner, _ in
-//                        var currentList = try! owner.list.value()
-//                        currentList[row].isCheckList.toggle()
-//                        owner.list.onNext(currentList)
-//                    }
-//                    .disposed(by: cell.disposeBag)
-//
-//                cell.saveButton.rx.tap
-//                    .bind(with: self) { owner, _ in
-//                        var currentList = try! owner.list.value()
-//                        currentList[row].saveList.toggle()
-//                        owner.list.onNext(currentList)
-//                    }
-//                    .disposed(by: cell.disposeBag)
-
-//        output.nextTap
-//            .bind(with: self) { owner, value in
-//                var currentList = try! owner.list.value() // 추가버튼 눌러도 계속 유지하기 위해
-//                currentList.insert((ShoppingItem(isCheckList: false, listTitle: value, saveList: false)), at: 0)
-//                owner.list.onNext(currentList)
-//            }
-//            .disposed(by: disposeBag)
-//
 //        rootView.tableView.rx.itemDeleted
 //            .observe(on: MainScheduler.asyncInstance)
 //            .withUnretained(self)

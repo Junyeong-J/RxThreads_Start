@@ -27,7 +27,7 @@ final class ShoppingListView: BaseView {
     
     static func layout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 40, height: 40)
+        layout.itemSize = CGSize(width: 80, height: 40)
         layout.scrollDirection = .horizontal
         return layout
     }
@@ -75,7 +75,7 @@ final class ShoppingListView: BaseView {
         }
         
         tableView.snp.makeConstraints {
-            $0.top.equalTo(collectionView.snp.bottom)
+            $0.top.equalTo(collectionView.snp.bottom).offset(10)
             $0.horizontalEdges.bottom.equalToSuperview()
         }
     }

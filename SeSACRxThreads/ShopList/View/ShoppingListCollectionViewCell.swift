@@ -18,7 +18,7 @@ final class ShoppingCollectionViewCell: BaseCollectionViewCell {
     
     override func configureLayout() {
         searchWordLabel.snp.makeConstraints { make in
-            make.edges.equalTo(contentView)
+            make.centerY.horizontalEdges.equalTo(contentView)
         }
     }
     
@@ -29,6 +29,11 @@ final class ShoppingCollectionViewCell: BaseCollectionViewCell {
         layer.cornerRadius = 8
         layer.borderWidth = 1
         layer.borderColor = UIColor.black.cgColor
+
+    }
+    
+    func configureData(text: String) {
+        searchWordLabel.text = text
     }
     
 }
