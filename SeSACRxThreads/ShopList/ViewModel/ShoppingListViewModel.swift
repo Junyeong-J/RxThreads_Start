@@ -13,25 +13,29 @@ final class ShoppingListViewModel {
     
     let disposeBag = DisposeBag()
     
-    var shoppingListItems = [
-        ShoppingItem(isCheckList: true, listTitle: "그립톡 구매하기", saveList: true),
-        ShoppingItem(isCheckList: false, listTitle: "사이다 구매", saveList: false),
-        ShoppingItem(isCheckList: false, listTitle: "아이패드 케이스 최저가 알아보기", saveList: true),
-        ShoppingItem(isCheckList: false, listTitle: "양말", saveList: true)
-    ]
+    private let shoppingList = Observable.just(
+        [ShoppingItem(isCheckList: true, listTitle: "그립톡 구매하기", saveList: true),
+         ShoppingItem(isCheckList: false, listTitle: "사이다 구매", saveList: false),
+         ShoppingItem(isCheckList: false, listTitle: "아이패드 케이스 최저가 알아보기", saveList: true),
+         ShoppingItem(isCheckList: false, listTitle: "양말", saveList: true)
+        ])
     
-    lazy var list = BehaviorSubject(value: shoppingListItems)
+    private let recentList = ["a", "b"]
     
     struct Input {
-        let text: ControlProperty<String>
         let addTap: ControlEvent<Void>
+        let text: ControlProperty<String>
+        let recentText: PublishSubject<String>
     }
     
     struct Output {
+        let shopList: Observable<[ShoppingItem]>
+        let recentList: BehaviorSubject<[String]>
         let nextTap: Observable<String>
     }
     
     func transform(input: Input) -> Output {
+        let recentList = BehaviorSubject(value: recentList)
         
         let addTap = input.addTap
             .withLatestFrom(input.text) { void, text in
@@ -39,7 +43,7 @@ final class ShoppingListViewModel {
             }
             .filter { !$0.isEmpty } // 빈값은 추가 못하게 하기
         
-        return Output(nextTap: addTap)
+        return Output(shopList: shoppingList, recentList: recentList, nextTap: addTap)
     }
     
 }

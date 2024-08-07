@@ -33,6 +33,9 @@
 		04F6DC022C5B0D8200667F4D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F6DC012C5B0D8200667F4D /* DetailViewController.swift */; };
 		723E45E02C626DE7004B0E0C /* ReuseIdentifierProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723E45DF2C626DE7004B0E0C /* ReuseIdentifierProtocol.swift */; };
 		723E45E32C62709E004B0E0C /* ShoppingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723E45E22C62709E004B0E0C /* ShoppingItem.swift */; };
+		723E46062C639BA7004B0E0C /* ShoppingListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723E46052C639BA7004B0E0C /* ShoppingListCollectionViewCell.swift */; };
+		723E46082C639C03004B0E0C /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723E46072C639C03004B0E0C /* BaseCollectionViewCell.swift */; };
+		723E460A2C639C19004B0E0C /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723E46092C639C19004B0E0C /* BaseTableViewCell.swift */; };
 		727E3DCB2C5F61430095E1D3 /* ShoppingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DCA2C5F61430095E1D3 /* ShoppingListViewController.swift */; };
 		727E3DCD2C5F62E90095E1D3 /* ShoppingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DCC2C5F62E90095E1D3 /* ShoppingTableViewCell.swift */; };
 		727E3DCF2C5FB6580095E1D3 /* ListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DCE2C5FB6580095E1D3 /* ListDetailViewController.swift */; };
@@ -100,6 +103,9 @@
 		04F6DC012C5B0D8200667F4D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		723E45DF2C626DE7004B0E0C /* ReuseIdentifierProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifierProtocol.swift; sourceTree = "<group>"; };
 		723E45E22C62709E004B0E0C /* ShoppingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingItem.swift; sourceTree = "<group>"; };
+		723E46052C639BA7004B0E0C /* ShoppingListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListCollectionViewCell.swift; sourceTree = "<group>"; };
+		723E46072C639C03004B0E0C /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		723E46092C639C19004B0E0C /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		727E3DCA2C5F61430095E1D3 /* ShoppingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListViewController.swift; sourceTree = "<group>"; };
 		727E3DCC2C5F62E90095E1D3 /* ShoppingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingTableViewCell.swift; sourceTree = "<group>"; };
 		727E3DCE2C5FB6580095E1D3 /* ListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewController.swift; sourceTree = "<group>"; };
@@ -295,6 +301,7 @@
 				727E3DCA2C5F61430095E1D3 /* ShoppingListViewController.swift */,
 				727E3DCC2C5F62E90095E1D3 /* ShoppingTableViewCell.swift */,
 				727E3DD82C60A0FC0095E1D3 /* ShoppingListView.swift */,
+				723E46052C639BA7004B0E0C /* ShoppingListCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -304,6 +311,8 @@
 			children = (
 				727E3DDB2C60A1940095E1D3 /* BaseViewController.swift */,
 				727E3DDD2C60A4110095E1D3 /* BaseView.swift */,
+				723E46072C639C03004B0E0C /* BaseCollectionViewCell.swift */,
+				723E46092C639C19004B0E0C /* BaseTableViewCell.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -542,6 +551,7 @@
 				727E3DFB2C6110EF0095E1D3 /* NicknameViewModel.swift in Sources */,
 				727E3DCF2C5FB6580095E1D3 /* ListDetailViewController.swift in Sources */,
 				04F6DBFE2C5B0C0300667F4D /* SearchViewController.swift in Sources */,
+				723E46062C639BA7004B0E0C /* ShoppingListCollectionViewCell.swift in Sources */,
 				04F6DC002C5B0C2200667F4D /* SearchTableViewCell.swift in Sources */,
 				727E3DDC2C60A1940095E1D3 /* BaseViewController.swift in Sources */,
 				727E3DF32C610B090095E1D3 /* BirthdayView.swift in Sources */,
@@ -550,6 +560,7 @@
 				727E3DE62C6105790095E1D3 /* PasswordView.swift in Sources */,
 				727E3DD62C60A0CC0095E1D3 /* ShoppingListViewModel.swift in Sources */,
 				727E3DF72C610D880095E1D3 /* PhoneViewModel.swift in Sources */,
+				723E46082C639C03004B0E0C /* BaseCollectionViewCell.swift in Sources */,
 				727E3DE82C6105860095E1D3 /* PasswordViewModel.swift in Sources */,
 				727E3DD92C60A0FC0095E1D3 /* ShoppingListView.swift in Sources */,
 				727E3DF12C610AEB0095E1D3 /* BirthdayViewModel.swift in Sources */,
@@ -557,6 +568,7 @@
 				727E3E012C6112D10095E1D3 /* SearchView.swift in Sources */,
 				727E3DEC2C6108630095E1D3 /* SignInView.swift in Sources */,
 				723E45E32C62709E004B0E0C /* ShoppingItem.swift in Sources */,
+				723E460A2C639C19004B0E0C /* BaseTableViewCell.swift in Sources */,
 				0412806A2AEFA91E00972552 /* SignUpViewController.swift in Sources */,
 				727E3DDE2C60A4110095E1D3 /* BaseView.swift in Sources */,
 				041280712AEFAD3D00972552 /* PhoneViewController.swift in Sources */,

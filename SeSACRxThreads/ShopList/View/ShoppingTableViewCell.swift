@@ -10,14 +10,9 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-final class ShoppingTableViewCell: UITableViewCell {
+final class ShoppingTableViewCell: BaseTableViewCell {
     
     var disposeBag = DisposeBag()
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        disposeBag = DisposeBag()
-    }
     
     let toDoListLabel: UILabel = {
         let label = UILabel()
@@ -44,22 +39,18 @@ final class ShoppingTableViewCell: UITableViewCell {
         return button
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = #colorLiteral(red: 0.9039029791, green: 0.9039029791, blue: 0.9039029791, alpha: 1)
-        self.selectionStyle = .none
-        configure()
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configure() {
+    override func configureHierarchy() {
         contentView.addSubview(checkListButton)
         contentView.addSubview(toDoListLabel)
         contentView.addSubview(saveButton)
-        
+    }
+    
+    override func configureLayout() {
         checkListButton.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().inset(20)
@@ -77,6 +68,11 @@ final class ShoppingTableViewCell: UITableViewCell {
             $0.trailing.equalToSuperview().inset(20)
             $0.size.equalTo(32)
         }
+    }
+    
+    override func configureView() {
+        contentView.backgroundColor = #colorLiteral(red: 0.9039029791, green: 0.9039029791, blue: 0.9039029791, alpha: 1)
+        self.selectionStyle = .none
     }
     
     func configureData(data: ShoppingItem) {

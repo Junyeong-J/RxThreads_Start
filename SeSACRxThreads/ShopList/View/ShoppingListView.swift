@@ -19,6 +19,19 @@ final class ShoppingListView: BaseView {
         return view
     }()
     
+    let collectionView: UICollectionView = { 
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+        collectionView.register(ShoppingListcollectionViewCell.self, forCellWithReuseIdentifier: ShoppingListcollectionViewCell.identifier)
+        return collectionView
+    }()
+    
+    static func layout() -> UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 120, height: 40)
+        layout.scrollDirection = .horizontal
+        return layout
+    }
+    
     let addButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("추가", for: .normal)
@@ -44,6 +57,7 @@ final class ShoppingListView: BaseView {
     
     override func configureHierarchy() {
         addSubview(textField)
+        addSubview(collectionView)
         addSubview(tableView)
     }
     
@@ -54,8 +68,14 @@ final class ShoppingListView: BaseView {
             $0.height.equalTo(60)
         }
         
-        tableView.snp.makeConstraints {
+        collectionView.snp.makeConstraints {
             $0.top.equalTo(textField.snp.bottom).offset(10)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(50)
+        }
+        
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(collectionView.snp.bottom)
             $0.horizontalEdges.bottom.equalToSuperview()
         }
     }
