@@ -13,16 +13,21 @@ final class BoxOfficeViewModel {
     
     let disposeBag = DisposeBag()
     
+    private var recentList = ["20240801", "20240802"]
+    
     struct Input {
         let searchButtonTap: ControlEvent<Void>
         let searchText: ControlProperty<String>
+        let recentText: PublishSubject<String>
     }
     
     struct Output {
         let movieList: Observable<[DailyBoxOfficeList]>
+        let recentList: BehaviorSubject<[String]>
     }
     
     func transform(input: Input) -> Output {
+        let recentList = BehaviorSubject(value: recentList)
         let boxOfficeList = PublishSubject<[DailyBoxOfficeList]>()
         
         input.searchButtonTap
@@ -31,11 +36,12 @@ final class BoxOfficeViewModel {
             .distinctUntilChanged()
             .map {
                 guard let intText = Int($0) else {
-                    return 20240701
+                    return 20240807
                 }
                 return intText
             }
             .map { return "\($0)" }
+            .filter { !$0.isEmpty }
             .flatMap { value in
                 BoxOfficeNetworkManager.shared.boxOfficeFetch(date: value)
             }
@@ -51,6 +57,24 @@ final class BoxOfficeViewModel {
             })
             .disposed(by: disposeBag)
         
-        return Output(movieList: boxOfficeList)
+        input.searchButtonTap
+            .withLatestFrom(input.searchText) { void, text in
+                return text
+            }
+            .filter { !$0.isEmpty }
+            .subscribe(with: self) { owner, value in
+                owner.recentList.insert(value, at: 0)
+                recentList.onNext(owner.recentList)
+            }
+            .disposed(by: disposeBag)
+        
+        input.recentText
+            .subscribe(with: self) { owner, value in
+                owner.recentList.append(value)
+                recentList.onNext(owner.recentList)
+            }
+            .disposed(by: disposeBag)
+        
+        return Output(movieList: boxOfficeList, recentList: recentList)
     }
 }

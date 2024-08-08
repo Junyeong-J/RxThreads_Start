@@ -28,9 +28,18 @@ final class BoxOfficeViewController: BaseViewController<BoxOfficeView> {
         
         let input = BoxOfficeViewModel.Input(
             searchButtonTap: rootView.searchBar.rx.searchButtonClicked,
-            searchText: rootView.searchBar.rx.text.orEmpty)
+            searchText: rootView.searchBar.rx.text.orEmpty,
+            recentText: recentText)
         
         let output = viewModel.transform(input: input)
+        
+        output.recentList
+            .bind(to: rootView.collectionView.rx.items(
+                cellIdentifier: BoxOfficeCollectionViewCell.identifier,
+                cellType: BoxOfficeCollectionViewCell.self)) { (row, element, cell) in
+                    cell.configureData(text: element)
+                }
+                .disposed(by: disposeBag)
         
         output.movieList
             .bind(to: rootView.tableView.rx.items(
