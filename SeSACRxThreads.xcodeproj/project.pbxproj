@@ -44,6 +44,7 @@
 		723E461F2C65011D004B0E0C /* BoxOfficeNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723E461E2C65011D004B0E0C /* BoxOfficeNetworkManager.swift */; };
 		723E46212C65019B004B0E0C /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723E46202C65019A004B0E0C /* Movie.swift */; };
 		723E46232C6501FA004B0E0C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 723E46222C6501FA004B0E0C /* .gitignore */; };
+		723E46252C650257004B0E0C /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723E46242C650257004B0E0C /* APIKey.swift */; };
 		727E3DCB2C5F61430095E1D3 /* ShoppingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DCA2C5F61430095E1D3 /* ShoppingListViewController.swift */; };
 		727E3DCD2C5F62E90095E1D3 /* ShoppingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DCC2C5F62E90095E1D3 /* ShoppingTableViewCell.swift */; };
 		727E3DCF2C5FB6580095E1D3 /* ListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E3DCE2C5FB6580095E1D3 /* ListDetailViewController.swift */; };
@@ -122,6 +123,7 @@
 		723E461E2C65011D004B0E0C /* BoxOfficeNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxOfficeNetworkManager.swift; sourceTree = "<group>"; };
 		723E46202C65019A004B0E0C /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		723E46222C6501FA004B0E0C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		723E46242C650257004B0E0C /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		727E3DCA2C5F61430095E1D3 /* ShoppingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListViewController.swift; sourceTree = "<group>"; };
 		727E3DCC2C5F62E90095E1D3 /* ShoppingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingTableViewCell.swift; sourceTree = "<group>"; };
 		727E3DCE2C5FB6580095E1D3 /* ListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewController.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				0412802E2AEF9BAC00972552 /* LaunchScreen.storyboard */,
 				041280312AEF9BAC00972552 /* Info.plist */,
 				041280772AF1D14000972552 /* Resource.swift */,
+				723E46242C650257004B0E0C /* APIKey.swift */,
 			);
 			path = SeSACRxThreads;
 			sourceTree = "<group>";
@@ -615,6 +618,7 @@
 				727E3DE22C60F87B0095E1D3 /* SignUpViewModel.swift in Sources */,
 				723E461F2C65011D004B0E0C /* BoxOfficeNetworkManager.swift in Sources */,
 				727E3DFB2C6110EF0095E1D3 /* NicknameViewModel.swift in Sources */,
+				723E46252C650257004B0E0C /* APIKey.swift in Sources */,
 				727E3DCF2C5FB6580095E1D3 /* ListDetailViewController.swift in Sources */,
 				04F6DBFE2C5B0C0300667F4D /* SearchViewController.swift in Sources */,
 				723E461B2C64FFB9004B0E0C /* BoxOfficeCollectionViewCell.swift in Sources */,

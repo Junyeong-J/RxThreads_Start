@@ -24,7 +24,21 @@ final class BoxOfficeViewController: BaseViewController<BoxOfficeView> {
     }
     
     override func bindModel() {
+        let recentText = PublishSubject<String>()
         
+        let input = BoxOfficeViewModel.Input(
+            searchButtonTap: rootView.searchBar.rx.searchButtonClicked,
+            searchText: rootView.searchBar.rx.text.orEmpty)
+        
+        let output = viewModel.transform(input: input)
+        
+        output.movieList
+            .bind(to: rootView.tableView.rx.items(
+                cellIdentifier: BoxOfficeTableViewCell.identifier,
+                cellType: BoxOfficeTableViewCell.self)) { (row, element, cell) in
+                    cell.configureData(data: element, index: row + 1)
+                }
+                .disposed(by: disposeBag)
     }
     
 }
