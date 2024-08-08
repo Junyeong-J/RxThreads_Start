@@ -25,11 +25,13 @@ final class BoxOfficeViewController: BaseViewController<BoxOfficeView> {
     
     override func bindModel() {
         let recentText = PublishSubject<String>()
+        let recentDate = PublishSubject<String>()
         
         let input = BoxOfficeViewModel.Input(
             searchButtonTap: rootView.searchBar.rx.searchButtonClicked,
             searchText: rootView.searchBar.rx.text.orEmpty,
-            recentText: recentText)
+            recentText: recentText,
+            recentDate: recentDate)
         
         let output = viewModel.transform(input: input)
         
@@ -48,6 +50,17 @@ final class BoxOfficeViewController: BaseViewController<BoxOfficeView> {
                     cell.configureData(data: element, index: row + 1)
                 }
                 .disposed(by: disposeBag)
+        
+        Observable.zip(
+            rootView.collectionView.rx.modelSelected(String.self),
+            rootView.collectionView.rx.itemSelected
+        )
+        .map { $0.0 }
+        .subscribe(with: self) { owner, value in
+            recentDate.onNext(value)
+        }
+        .disposed(by: disposeBag)
+        
     }
     
 }

@@ -19,6 +19,7 @@ final class BoxOfficeViewModel {
         let searchButtonTap: ControlEvent<Void>
         let searchText: ControlProperty<String>
         let recentText: PublishSubject<String>
+        let recentDate: PublishSubject<String>
     }
     
     struct Output {
@@ -29,6 +30,30 @@ final class BoxOfficeViewModel {
     func transform(input: Input) -> Output {
         let recentList = BehaviorSubject(value: recentList)
         let boxOfficeList = PublishSubject<[DailyBoxOfficeList]>()
+        
+        func fetchBoxOffice(date: String) {
+            BoxOfficeNetworkManager.shared.boxOfficeFetch(date: date)
+                .subscribe(with: self, onNext: { owner, movie in
+                    dump(movie.boxOfficeResult.dailyBoxOfficeList)
+                    boxOfficeList.onNext(movie.boxOfficeResult.dailyBoxOfficeList)
+                }, onError: { owner, error in
+                    print("error: \(error)")
+                }, onCompleted: { owner in
+                    print("completed")
+                }, onDisposed: { owner in
+                    print("disposed")
+                })
+                .disposed(by: disposeBag)
+        }
+        
+        input.recentDate
+            .map { Int($0) ?? 20240807 }
+            .map { "\($0)" }
+            .filter { !$0.isEmpty }
+            .subscribe(onNext: { date in
+                fetchBoxOffice(date: date)
+            })
+            .disposed(by: disposeBag)
         
         input.searchButtonTap
             .throttle(.seconds(1), scheduler: MainScheduler.instance)
@@ -42,18 +67,8 @@ final class BoxOfficeViewModel {
             }
             .map { return "\($0)" }
             .filter { !$0.isEmpty }
-            .flatMap { value in
-                BoxOfficeNetworkManager.shared.boxOfficeFetch(date: value)
-            }
-            .subscribe(with: self, onNext: { owner, movie in
-                dump(movie.boxOfficeResult.dailyBoxOfficeList)
-                boxOfficeList.onNext(movie.boxOfficeResult.dailyBoxOfficeList)
-            }, onError: { owner, error in
-                print("error: \(error)")
-            }, onCompleted: { owner in
-                print("completed")
-            }, onDisposed: { owner in
-                print("disposed")
+            .subscribe(onNext: { date in
+                fetchBoxOffice(date: date)
             })
             .disposed(by: disposeBag)
         
