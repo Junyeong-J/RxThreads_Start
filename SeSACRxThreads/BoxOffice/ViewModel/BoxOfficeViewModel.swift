@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-final class BoxOfficeViewModel {
+final class BoxOfficeViewModel: BaseViewModel {
     
     let disposeBag = DisposeBag()
     
@@ -32,12 +32,18 @@ final class BoxOfficeViewModel {
         let boxOfficeList = PublishSubject<[DailyBoxOfficeList]>()
         
         func fetchBoxOffice(date: String) {
-            BoxOfficeNetworkManager.shared.boxOfficeFetch(date: date)
+            Observable.just(date)
+                .flatMap { date in
+                    BoxOfficeNetworkManager.shared.boxOfficeFetch(date: date)
+                        .catch { error in
+                            return Single.just(Movie(boxOfficeResult: BoxOfficeResult(dailyBoxOfficeList: [])))
+                        }
+                }
                 .subscribe(with: self, onNext: { owner, movie in
                     dump(movie.boxOfficeResult.dailyBoxOfficeList)
                     boxOfficeList.onNext(movie.boxOfficeResult.dailyBoxOfficeList)
                 }, onError: { owner, error in
-                    print("error: \(error)")
+                    print("error: (error)")
                 }, onCompleted: { owner in
                     print("completed")
                 }, onDisposed: { owner in
@@ -45,6 +51,8 @@ final class BoxOfficeViewModel {
                 })
                 .disposed(by: disposeBag)
         }
+        
+        
         
         input.recentDate
             .map { Int($0) ?? 20240807 }

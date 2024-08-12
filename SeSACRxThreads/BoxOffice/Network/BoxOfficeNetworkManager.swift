@@ -19,31 +19,36 @@ final class BoxOfficeNetworkManager {
     static let shared = BoxOfficeNetworkManager()
     private init() { }
     
-    func boxOfficeFetch(date: String) -> Observable<Movie> {
+    func boxOfficeFetch(date: String) -> Single<Movie> {
         let url = "\(APIURL.boxOfficeURL)\(date)"
         
-        let result = Observable<Movie>.create { observer in
+        let result = Single<Movie>.create { single in
             guard let url = URL(string: url) else {
-                observer.onError(APIError.invalidURL)
+                single(.failure(APIError.invalidURL))
                 return Disposables.create()
             }
             
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if error != nil {
-                    observer.onError(APIError.unknownResponse)
+                    single(.failure(APIError.unknownResponse))
                     return
                 }
                 
                 guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
-                    observer.onError(APIError.statusError)
+                    single(.failure(APIError.statusError))
                     return
                 }
                 
-                if let data = data, let appData = try? JSONDecoder().decode(Movie.self, from: data) {
-                    observer.onNext(appData)
-                    observer.onCompleted()
-                } else {
-                    observer.onError(APIError.unknownResponse)
+                guard let data = data else {
+                    single(.failure(APIError.unknownResponse))
+                    return
+                }
+                
+                do {
+                    let appData = try JSONDecoder().decode(Movie.self, from: data)
+                    single(.success(appData))
+                } catch {
+                    single(.failure(APIError.unknownResponse))
                 }
                 
             }.resume()
